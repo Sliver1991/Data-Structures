@@ -1,16 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/*
-
-	Binary Search Tree implemented with a linked list where each node has two links.
-    In a BST, the left linked node must have a lower data value than its parent,
-    while the right linked node must have a higher data value than its parent.
-    
-    
-
-*/
-
 typedef struct nodes {
 	int data;
 	struct nodes *left, *right, *parent;
@@ -20,6 +10,14 @@ node* initBST() {
 	node* newTop = NULL;
 	return newTop;
 }
+
+/*
+
+	Binary Search Tree implemented with a linked list where each node has two links.
+    In a BST, the left linked node must have a lower data value than its parent,
+    while the right linked node must have a higher data value than its parent.
+    
+*/
 
 void insert(node** tree, int value) {
 	if (*tree == NULL) {
@@ -89,9 +87,9 @@ void levelOrder(node* tree) {
     node** nodeArr = (node**)malloc(sizeof(node*)*size);
     nodeArr[0] = tree;
     while (i<size) {
-        if (nodeArr[i]->left!=None)
+        if (nodeArr[i]->left!=NULL)
             nodeArr[j++]=nodeArr[i]->left;
-        if (nodeArr[i]->right!=None)
+        if (nodeArr[i]->right!=NULL)
             nodeArr[j++]=nodeArr[i]->right;
         printf("%d ",nodeArr[i++]->data);
     }
@@ -120,3 +118,22 @@ node* findValue(node* tree, int value) {
     else
         return findValue(tree->right,value);
 }
+
+int findNext(node* tree, int val) {
+    node* value = findValue(tree,val);
+    if (value==NULL)
+        return val;
+    if (value->right!=NULL)
+        return minBST(value->right);
+    else {
+        node* parent = value->parent;
+		while ((parent != NULL) && (parent->left != value)) {
+			value = parent;
+			parent = value->parent;
+		}
+        if (parent==NULL)
+            return val;
+        return parent->data;
+    }
+}
+
