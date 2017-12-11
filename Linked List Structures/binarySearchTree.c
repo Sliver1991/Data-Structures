@@ -13,7 +13,7 @@
 
 typedef struct nodes {
 	int data;
-	struct nodes *left, *right;
+	struct nodes *left, *right, *parent;
 } node;
 
 node* initBST() {
@@ -27,6 +27,7 @@ void insert(node** tree, int value) {
 		(*tree)->data = value;
 		(*tree)->left = NULL;
 		(*tree)->right = NULL;
+        (*tree)->parent = NULL;
 	}
 	else if ((*tree)->data>value) {
 		if ((*tree)->left == NULL) {
@@ -34,6 +35,7 @@ void insert(node** tree, int value) {
 			(*tree)->left->data = value;
 			(*tree)->left->left = NULL;
 			(*tree)->left->right = NULL;
+            (*tree)->left->parent = (*tree);
 		}
 		else
 			insert(&((*tree)->left), value);
@@ -44,6 +46,7 @@ void insert(node** tree, int value) {
 			(*tree)->right->data = value;
 			(*tree)->right->left = NULL;
 			(*tree)->right->right = NULL;
+            (*tree)->right->parent = (*tree);
 		}
 		else
 			insert(&((*tree)->right), value);
