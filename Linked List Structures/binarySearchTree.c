@@ -8,6 +8,9 @@
 
 */
 
+#include <stdio.h>
+#include <stdlib.h>
+
 typedef struct nodes {
 	int data;
 	struct nodes *left, *right;
@@ -16,4 +19,9 @@ typedef struct nodes {
 typedef struct binarySearchTree {
 	node** top;
 } BST;
+
+BST initBST() {
+    BST newTree;
+    newTree->top = NULL;
+}
 
