@@ -94,3 +94,15 @@ void levelOrder(node* tree) {
     }
     free(nodeArr);
 }
+
+int maxBST(node* tree) {
+    while (tree->right!=NULL) 
+        tree = tree->right;
+    return tree->data;
+}
+
+int minBST(node* tree) {
+    while (tree->left!=NULL) 
+        tree = tree->left;
+    return tree->data;
+}
