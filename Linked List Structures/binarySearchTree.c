@@ -109,3 +109,14 @@ int minBST(node* tree) {
         tree = tree->left;
     return tree->data;
 }
+
+node* findValue(node* tree, int value) {
+    if (tree==NULL)
+        return NULL;
+    if (tree->data == value)
+        return tree;
+    else if (tree->data > value)
+        return findValue(tree->left,value);
+    else
+        return findValue(tree->right,value);
+}
