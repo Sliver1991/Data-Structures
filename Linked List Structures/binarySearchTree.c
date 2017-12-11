@@ -50,6 +50,12 @@ void insert(node** tree, int value) {
 	}
 }
 
+int treeSize(node* tree) {
+    if (tree==NULL)
+        return 0;
+    return 1+treeSize(tree->left)+treeSize(tree->right);
+}
+
 void preOrder(node* tree) {
 	if (tree == NULL)
 		return;
@@ -75,3 +81,16 @@ void postOrder(node* tree) {
 	printf("%d ", tree->data);
 }
 
+void levelOrder(node* tree) {
+    int size=treeSize(tree), i=0, j=1;
+    node** nodeArr = (node**)malloc(sizeof(node*)*size);
+    nodeArr[0] = tree;
+    while (i<size) {
+        if (nodeArr[i]->left!=None)
+            nodeArr[j++]=nodeArr[i]->left;
+        if (nodeArr[i]->right!=None)
+            nodeArr[j++]=nodeArr[i]->right;
+        printf("%d ",nodeArr[i++]->data);
+    }
+    free(nodeArr);
+}
