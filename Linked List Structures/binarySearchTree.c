@@ -16,17 +16,26 @@ typedef struct nodes {
 	struct nodes *left, *right;
 } node;
 
-typedef struct binarySearchTree {
-	node** top;
-} BST;
-
-BST initBST() {
-    BST newTree;
-    newTree->top = NULL;
+node* initBST() {
+    node* newTop = NULL;
+    return newTop;
 }
 
-node* initNode(int data) {
-	node* newNode = malloc(sizeof(node));
-	newNode->data = data;
-	return newNode;
+void insert(node* tree, int value) {
+    if (tree->data>value) {
+        if (tree->left!=NULL) {
+            tree->left = malloc(sizeof(node));
+            tree->left->data = value;
+        }
+        else
+            insert(tree->left,value);
+    }
+    else {
+        if (tree->right!=NULL) {
+            tree->right = malloc(sizeof(node));
+            tree->right->data = value;
+        }
+        else
+            insert(tree->right,value);
+    }
 }
