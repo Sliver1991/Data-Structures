@@ -20,7 +20,7 @@ typedef struct stacks {
 
 stack initStack() {
 	stack newStack;
-	newStack.top = NULL;
+	newStack->top = NULL;
 	return newStack;
 }
 

@@ -20,7 +20,7 @@ typedef struct queues {
 
 queue initQueue() {
 	queue newQueue;
-	newQueue.top = NULL;
+	newQueue->top = NULL;
 	return newQueue;
 }
 
