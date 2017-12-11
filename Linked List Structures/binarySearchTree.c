@@ -50,10 +50,28 @@ void insert(node** tree, int value) {
 	}
 }
 
-void preorder(node* tree) {
+void preOrder(node* tree) {
 	if (tree == NULL)
 		return;
-	preorder(tree->left);
 	printf("%d ", tree->data);
-	preorder(tree->right);
+	preOrder(tree->left);
+	preOrder(tree->right);
+	
 }
+
+void inOrder(node* tree) {
+	if (tree == NULL)
+		return;
+	inOrder(tree->left);
+	printf("%d ", tree->data);
+	inOrder(tree->right);
+}
+
+void postOrder(node* tree) {
+	if (tree == NULL)
+		return;
+	postOrder(tree->left);
+	postOrder(tree->right);
+	printf("%d ", tree->data);
+}
+
