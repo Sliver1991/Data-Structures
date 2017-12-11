@@ -39,3 +39,11 @@ void insert(node* tree, int value) {
             insert(tree->right,value);
     }
 }
+
+void preorder(node* tree) {
+    if (tree==NULL)
+        return;
+    preorder(tree->left);
+    printf("%d ",tree->data);
+    preorder(tree->right);
+}
