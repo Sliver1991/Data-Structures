@@ -25,3 +25,8 @@ BST initBST() {
     newTree->top = NULL;
 }
 
+node* initNode(int data) {
+	node* newNode = malloc(sizeof(node));
+	newNode->data = data;
+	return newNode;
+}
