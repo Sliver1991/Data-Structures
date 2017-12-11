@@ -6,10 +6,6 @@ typedef struct nodes {
 	struct nodes *left, *right, *parent;
 } node;
 
-node* initBST() {
-	node* newTop = NULL;
-	return newTop;
-}
 
 /*
 
@@ -19,8 +15,16 @@ node* initBST() {
     
 */
 
-void insert(node** tree, int value) {
-	if (*tree == NULL) {
+node* initBST() { //Function initiates a blank BST
+	node* newTop = NULL;
+	return newTop;
+}
+
+void insert(node** tree, int value) { 
+    
+    //Function inserts a new node into place according to BST rules
+	
+    if (*tree == NULL) {
 		*tree = (node*)malloc(sizeof(node));
 		(*tree)->data = value;
 		(*tree)->left = NULL;
@@ -52,12 +56,14 @@ void insert(node** tree, int value) {
 }
 
 int treeSize(node* tree) {
+    //Function returns size of tree
     if (tree==NULL)
         return 0;
     return 1+treeSize(tree->left)+treeSize(tree->right);
 }
 
 void preOrder(node* tree) {
+    //Function prints tree in pre-order (parent-left-right)
 	if (tree == NULL)
 		return;
 	printf("%d ", tree->data);
@@ -67,6 +73,7 @@ void preOrder(node* tree) {
 }
 
 void inOrder(node* tree) {
+    //Function prints tree in in-order (left-parent-right)
 	if (tree == NULL)
 		return;
 	inOrder(tree->left);
@@ -75,6 +82,7 @@ void inOrder(node* tree) {
 }
 
 void postOrder(node* tree) {
+    //Function prints tree in post-order (left-right-parent)
 	if (tree == NULL)
 		return;
 	postOrder(tree->left);
@@ -83,6 +91,7 @@ void postOrder(node* tree) {
 }
 
 void levelOrder(node* tree) {
+    //Function prints tree in level-order (top-its children-their children-etc.)
     int size=treeSize(tree), i=0, j=1;
     node** nodeArr = (node**)malloc(sizeof(node*)*size);
     nodeArr[0] = tree;
@@ -97,18 +106,21 @@ void levelOrder(node* tree) {
 }
 
 int maxBST(node* tree) {
+    //Function returns max value in tree
     while (tree->right!=NULL) 
         tree = tree->right;
     return tree->data;
 }
 
 int minBST(node* tree) {
+    //Function returns min value in tree
     while (tree->left!=NULL) 
         tree = tree->left;
     return tree->data;
 }
 
 node* findValue(node* tree, int value) {
+    //Function returns the node with value as data
     if (tree==NULL)
         return NULL;
     if (tree->data == value)
@@ -120,6 +132,8 @@ node* findValue(node* tree, int value) {
 }
 
 int findNext(node* tree, int val) {
+    //Function returns the data of the node with the smallest value above val
+    //Function returns the val itself if none is found
     node* value = findValue(tree,val);
     if (value==NULL)
         return val;
