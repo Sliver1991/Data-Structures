@@ -1,3 +1,6 @@
+#include <stdio.h>
+#include <stdlib.h>
+
 /*
 
 	Binary Search Tree implemented with a linked list where each node has two links.
@@ -8,42 +11,49 @@
 
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-
 typedef struct nodes {
 	int data;
 	struct nodes *left, *right;
 } node;
 
 node* initBST() {
-    node* newTop = NULL;
-    return newTop;
+	node* newTop = NULL;
+	return newTop;
 }
 
-void insert(node* tree, int value) {
-    if (tree->data>value) {
-        if (tree->left!=NULL) {
-            tree->left = malloc(sizeof(node));
-            tree->left->data = value;
-        }
-        else
-            insert(tree->left,value);
-    }
-    else {
-        if (tree->right!=NULL) {
-            tree->right = malloc(sizeof(node));
-            tree->right->data = value;
-        }
-        else
-            insert(tree->right,value);
-    }
+void insert(node** tree, int value) {
+	if (*tree == NULL) {
+		*tree = (node*)malloc(sizeof(node));
+		(*tree)->data = value;
+		(*tree)->left = NULL;
+		(*tree)->right = NULL;
+	}
+	else if ((*tree)->data>value) {
+		if ((*tree)->left == NULL) {
+			(*tree)->left = (node*)malloc(sizeof(node));
+			(*tree)->left->data = value;
+			(*tree)->left->left = NULL;
+			(*tree)->left->right = NULL;
+		}
+		else
+			insert(&((*tree)->left), value);
+	}
+	else {
+		if ((*tree)->right == NULL) {
+			(*tree)->right = (node*)malloc(sizeof(node));
+			(*tree)->right->data = value;
+			(*tree)->right->left = NULL;
+			(*tree)->right->right = NULL;
+		}
+		else
+			insert(&((*tree)->right), value);
+	}
 }
 
 void preorder(node* tree) {
-    if (tree==NULL)
-        return;
-    preorder(tree->left);
-    printf("%d ",tree->data);
-    preorder(tree->right);
+	if (tree == NULL)
+		return;
+	preorder(tree->left);
+	printf("%d ", tree->data);
+	preorder(tree->right);
 }
