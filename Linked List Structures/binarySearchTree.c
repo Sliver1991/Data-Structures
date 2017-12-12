@@ -151,3 +151,49 @@ int findNext(node* tree, int val) {
     }
 }
 
+void deleteVal(node** tree, int val) {
+	//Function removes node with val from BST
+	node* toDelete = findValue(*tree, val);
+	if (toDelete == NULL) {
+		printf("%d not found.\n",val);
+		return;
+	}
+	if ((toDelete->left == NULL) && (toDelete->right == NULL)) {
+		if (toDelete->parent == NULL)
+			*tree = NULL;
+		else 
+			if (toDelete->parent->left == toDelete)
+				toDelete->parent->left = NULL;
+			else
+				toDelete->parent->right = NULL;
+		free(toDelete);
+	}
+	else {
+		if ((toDelete->left != NULL) && (toDelete->right == NULL)) {
+			if (toDelete->parent == NULL)
+				*tree = toDelete->left;
+			else
+				if (toDelete->parent->left == toDelete)
+					toDelete->parent->left = toDelete->left;
+				else
+					toDelete->parent->right = toDelete->left;
+			free(toDelete);
+		}
+		else if ((toDelete->right != NULL) && (toDelete->left == NULL)) {
+			if (toDelete->parent == NULL)
+				*tree = toDelete->right;
+			else
+				if (toDelete->parent->left == toDelete)
+					toDelete->parent->left = toDelete->right;
+				else
+					toDelete->parent->right = toDelete->right;
+			free(toDelete);
+		}
+		else {
+			int successor = findNext(*tree, toDelete->data);
+			deleteVal(tree, successor);
+			toDelete->data = successor;
+		}
+	}
+	printf("%d deleted.\n", val);
+}
