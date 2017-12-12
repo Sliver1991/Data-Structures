@@ -155,13 +155,13 @@ void deleteVal(node** tree, int val) {
 	//Function removes node with val from BST
 	node* toDelete = findValue(*tree, val);
 	if (toDelete == NULL) {
-		printf("%d not found.\n",val);
+		printf("%d not found.\n", val);
 		return;
 	}
 	if ((toDelete->left == NULL) && (toDelete->right == NULL)) {
 		if (toDelete->parent == NULL)
 			*tree = NULL;
-		else 
+		else
 			if (toDelete->parent->left == toDelete)
 				toDelete->parent->left = NULL;
 			else
@@ -173,10 +173,11 @@ void deleteVal(node** tree, int val) {
 			if (toDelete->parent == NULL)
 				*tree = toDelete->left;
 			else
-				if (toDelete->parent->left == toDelete)
+				if (toDelete->parent->left == toDelete) 
 					toDelete->parent->left = toDelete->left;
 				else
 					toDelete->parent->right = toDelete->left;
+			toDelete->left->parent = toDelete->parent;
 			free(toDelete);
 		}
 		else if ((toDelete->right != NULL) && (toDelete->left == NULL)) {
@@ -187,6 +188,7 @@ void deleteVal(node** tree, int val) {
 					toDelete->parent->left = toDelete->right;
 				else
 					toDelete->parent->right = toDelete->right;
+			toDelete->right->parent = toDelete->parent;
 			free(toDelete);
 		}
 		else {
@@ -195,5 +197,14 @@ void deleteVal(node** tree, int val) {
 			toDelete->data = successor;
 		}
 	}
-	printf("%d deleted.\n", val);
 }
+
+void freeTree(node** tree) {
+	while (*tree != NULL) {
+		if ((*tree)->right != NULL)
+			deleteVal(tree, maxBST(*tree));
+		else
+			deleteVal(tree, minBST(*tree));
+	}
+}
+
